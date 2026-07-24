@@ -4,6 +4,7 @@ import co.com.franchise.model.BranchRepository;
 import co.com.franchise.model.EntityNotFoundException;
 import co.com.franchise.model.FranchiseRepository;
 import co.com.franchise.model.HighestStockProduct;
+import co.com.franchise.model.TechnicalMessage;
 import co.com.franchise.model.Product;
 import co.com.franchise.model.ProductRepository;
 import reactor.core.publisher.Flux;
@@ -25,7 +26,7 @@ public class GetHighestStockProductUseCase {
 
     public Flux<HighestStockProduct> execute(String franchiseId) {
         return franchiseRepository.findById(franchiseId)
-                .switchIfEmpty(Mono.error(new EntityNotFoundException("Franchise not found: " + franchiseId)))
+                .switchIfEmpty(Mono.error(new EntityNotFoundException(TechnicalMessage.FRANCHISE_NOT_FOUND)))
                 .flatMapMany(franchise -> branchRepository.findByFranchiseId(franchise.getId()))
                 .flatMap(branch -> productRepository.findByBranchId(branch.getId())
                         .reduce((p1, p2) -> p1.getStock() >= p2.getStock() ? p1 : p2)

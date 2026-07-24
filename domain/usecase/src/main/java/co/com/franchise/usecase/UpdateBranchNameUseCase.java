@@ -3,6 +3,7 @@ package co.com.franchise.usecase;
 import co.com.franchise.model.Branch;
 import co.com.franchise.model.BranchRepository;
 import co.com.franchise.model.EntityNotFoundException;
+import co.com.franchise.model.TechnicalMessage;
 import reactor.core.publisher.Mono;
 
 public class UpdateBranchNameUseCase {
@@ -15,7 +16,7 @@ public class UpdateBranchNameUseCase {
 
     public Mono<Branch> execute(String branchId, String newName) {
         return branchRepository.findById(branchId)
-                .switchIfEmpty(Mono.error(new EntityNotFoundException("Branch not found: " + branchId)))
+                .switchIfEmpty(Mono.error(new EntityNotFoundException(TechnicalMessage.BRANCH_NOT_FOUND)))
                 .flatMap(branch -> Branch.updateName(branch, newName))
                 .flatMap(branchRepository::update);
     }

@@ -12,7 +12,7 @@ public class Franchise {
 
     public static Mono<Franchise> create(String name) {
         if (name == null || name.isBlank()) {
-            return Mono.error(new InvalidInputException("Franchise name must not be empty"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.FRANCHISE_NAME_EMPTY));
         }
         Franchise franchise = new Franchise();
         franchise.name = name.trim();
@@ -21,7 +21,7 @@ public class Franchise {
 
     public static Mono<Franchise> updateName(Franchise existing, String newName) {
         if (newName == null || newName.isBlank()) {
-            return Mono.error(new InvalidInputException("Franchise name must not be empty"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.FRANCHISE_NAME_EMPTY));
         }
         existing.name = newName.trim();
         return Mono.just(existing);

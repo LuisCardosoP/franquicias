@@ -14,10 +14,10 @@ public class Product {
 
     public static Mono<Product> create(String name, int stock, String branchId) {
         if (name == null || name.isBlank()) {
-            return Mono.error(new InvalidInputException("Product name must not be empty"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.PRODUCT_NAME_EMPTY));
         }
         if (stock < 0) {
-            return Mono.error(new InvalidInputException("Product stock must not be negative"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.PRODUCT_STOCK_NEGATIVE));
         }
         Product product = new Product();
         product.name = name.trim();
@@ -28,7 +28,7 @@ public class Product {
 
     public static Mono<Product> updateStock(Product existing, int newStock) {
         if (newStock < 0) {
-            return Mono.error(new InvalidInputException("Product stock must not be negative"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.PRODUCT_STOCK_NEGATIVE));
         }
         existing.stock = newStock;
         return Mono.just(existing);
@@ -36,7 +36,7 @@ public class Product {
 
     public static Mono<Product> updateName(Product existing, String newName) {
         if (newName == null || newName.isBlank()) {
-            return Mono.error(new InvalidInputException("Product name must not be empty"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.PRODUCT_NAME_EMPTY));
         }
         existing.name = newName.trim();
         return Mono.just(existing);

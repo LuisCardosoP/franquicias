@@ -13,7 +13,7 @@ public class Branch {
 
     public static Mono<Branch> create(String name, String franchiseId) {
         if (name == null || name.isBlank()) {
-            return Mono.error(new InvalidInputException("Branch name must not be empty"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.BRANCH_NAME_EMPTY));
         }
         Branch branch = new Branch();
         branch.name = name.trim();
@@ -23,7 +23,7 @@ public class Branch {
 
     public static Mono<Branch> updateName(Branch existing, String newName) {
         if (newName == null || newName.isBlank()) {
-            return Mono.error(new InvalidInputException("Branch name must not be empty"));
+            return Mono.error(new InvalidInputException(TechnicalMessage.BRANCH_NAME_EMPTY));
         }
         existing.name = newName.trim();
         return Mono.just(existing);
