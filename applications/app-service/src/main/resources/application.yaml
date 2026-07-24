@@ -26,6 +26,12 @@ management:
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
 
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui.html"
+  api-docs:
+    path: "/v3/api-docs"
+
 resilience4j:
   circuitbreaker:
     instances:

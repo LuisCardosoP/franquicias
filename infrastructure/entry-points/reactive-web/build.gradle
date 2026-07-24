@@ -6,6 +6,7 @@ dependencies {
     implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
     implementation 'io.github.resilience4j:resilience4j-reactor:2.2.0'
     implementation 'org.springframework:spring-aspects'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux-test'
     implementation 'io.micrometer:micrometer-registry-prometheus'
 }
