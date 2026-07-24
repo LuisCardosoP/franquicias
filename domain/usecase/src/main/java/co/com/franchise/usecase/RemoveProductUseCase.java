@@ -2,6 +2,7 @@ package co.com.franchise.usecase;
 
 import co.com.franchise.model.EntityNotFoundException;
 import co.com.franchise.model.ProductRepository;
+import co.com.franchise.model.TechnicalMessage;
 import reactor.core.publisher.Mono;
 
 public class RemoveProductUseCase {
@@ -14,7 +15,7 @@ public class RemoveProductUseCase {
 
     public Mono<Void> execute(String productId) {
         return productRepository.findById(productId)
-                .switchIfEmpty(Mono.error(new EntityNotFoundException("Product not found: " + productId)))
+                .switchIfEmpty(Mono.error(new EntityNotFoundException(TechnicalMessage.PRODUCT_NOT_FOUND)))
                 .flatMap(product -> productRepository.deleteById(product.getId()));
     }
 }

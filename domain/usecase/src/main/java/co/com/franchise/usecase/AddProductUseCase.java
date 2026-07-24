@@ -4,6 +4,7 @@ import co.com.franchise.model.BranchRepository;
 import co.com.franchise.model.EntityNotFoundException;
 import co.com.franchise.model.Product;
 import co.com.franchise.model.ProductRepository;
+import co.com.franchise.model.TechnicalMessage;
 import reactor.core.publisher.Mono;
 
 public class AddProductUseCase {
@@ -18,7 +19,7 @@ public class AddProductUseCase {
 
     public Mono<Product> execute(String branchId, String productName, int stock) {
         return branchRepository.findById(branchId)
-                .switchIfEmpty(Mono.error(new EntityNotFoundException("Branch not found: " + branchId)))
+                .switchIfEmpty(Mono.error(new EntityNotFoundException(TechnicalMessage.BRANCH_NOT_FOUND)))
                 .flatMap(branch -> Product.create(productName, stock, branch.getId()))
                 .flatMap(productRepository::save);
     }

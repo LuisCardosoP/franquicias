@@ -14,6 +14,7 @@ import co.com.franchise.model.Franchise;
 import co.com.franchise.model.HighestStockProduct;
 import co.com.franchise.model.Product;
 import co.com.franchise.model.ServiceUnavailableException;
+import co.com.franchise.model.TechnicalMessage;
 import co.com.franchise.usecase.AddBranchUseCase;
 import co.com.franchise.usecase.AddProductUseCase;
 import co.com.franchise.usecase.CreateFranchiseUseCase;
@@ -233,7 +234,7 @@ public class FranchiseHandler {
     // --- Fallback methods ---
 
     public Mono<ServerResponse> fallback(ServerRequest request, CallNotPermittedException exception) {
-        return Mono.error(new ServiceUnavailableException("Service temporarily unavailable"));
+        return Mono.error(new ServiceUnavailableException(TechnicalMessage.SERVICE_UNAVAILABLE));
     }
 
     public Mono<ServerResponse> fallback(ServerRequest request, Exception exception) {
