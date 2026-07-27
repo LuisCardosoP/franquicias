@@ -21,6 +21,11 @@ public class TracingWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        String path = exchange.getRequest().getPath().value();
+        if (path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs") || path.startsWith("/webjars")) {
+            return chain.filter(exchange);
+        }
+
         String correlationId = UUID.randomUUID().toString();
         long startTime = System.currentTimeMillis();
 

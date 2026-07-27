@@ -16,13 +16,12 @@ public class CorsConfig {
     @Bean
     CorsWebFilter corsWebFilter(@Value("${cors.allowed-origins}") List<String> origins) {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
         config.setAllowedOrigins(origins);
-        config.setAllowedMethods(Arrays.asList("POST", "GET")); // TODO: Check others required methods
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of(CorsConfiguration.ALL));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/api/**", config);
 
         return new CorsWebFilter(source);
     }

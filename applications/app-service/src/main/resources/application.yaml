@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8091
 spring:
   application:
     name: "franchise-api"
@@ -13,7 +13,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb://localhost:27017/test"
+      uri: "mongodb+srv://luiscardosoy_db_user:mongoDBLuis@cluster1.futzmhz.mongodb.net/franchise-db?appName=Cluster1"
 management:
   endpoints:
     web:
@@ -24,11 +24,11 @@ management:
       probes:
         enabled: true
 cors:
-  allowed-origins: "http://localhost:4200,http://localhost:8080"
+  allowed-origins: "http://localhost:4200,http://localhost:8091"
 
 springdoc:
   swagger-ui:
-    path: "/swagger-ui.html"
+    enabled: false
   api-docs:
     path: "/v3/api-docs"
 

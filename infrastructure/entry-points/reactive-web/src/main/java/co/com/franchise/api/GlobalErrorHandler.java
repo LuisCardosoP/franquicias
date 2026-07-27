@@ -11,6 +11,7 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
@@ -31,6 +32,17 @@ public class GlobalErrorHandler implements WebExceptionHandler {
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        String path = exchange.getRequest().getPath().value();
+
+        // Let Spring handle non-API paths (swagger, actuator, static resources)
+        if (!path.startsWith("/api/")) {
+            return Mono.error(ex);
+        }
+
+        if (ex instanceof ResponseStatusException) {
+            return Mono.error(ex);
+        }
+
         HttpStatus status;
         ErrorResponse errorResponse;
 
